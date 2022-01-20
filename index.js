@@ -50,7 +50,7 @@ app.get('/appliances', async function (req, res) {
 
 
 app.get('/meters/:street_id', async function (req, res) {
-
+	try {
 	// use the streetMeters method in the factory function...
 	// send the street id in as sent in by the URL parameter street_id - req.params.street_id
 	var id = req.params.street_id;
@@ -63,6 +63,9 @@ app.get('/meters/:street_id', async function (req, res) {
 		id,
 		meters
 	});
+} catch (err) {
+	console.log(err)
+}
 });
 
 app.get('/topupUnits', async function (req, res) {
