@@ -3,6 +3,14 @@ const exphbs = require('express-handlebars');
 const pg = require('pg');
 const Pool = pg.Pool;
 
+
+// should we use a SSL connection
+let useSSL = false;
+let local = process.env.LOCAL || false;
+if (process.env.DATABASE_URL && !local) {
+    useSSL = true;
+}
+
 const app = express();
 const PORT = process.env.PORT || 3017;
 
@@ -11,9 +19,13 @@ const ElectricityMeters = require('./electricity-meters');
 const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/topups';
 
 
+
 const pool = new Pool({
-	connectionString
-});
+	connectionString,
+	ssl: {
+        rejectUnauthorized: false
+    }
+	});
 
 // enable the req.body object - to allow us to use HTML forms
 app.use(express.json());
