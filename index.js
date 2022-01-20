@@ -47,9 +47,13 @@ app.get('/', function (req, res) {
 
 app.get('/streets', async function (req, res) {
 	const streets = await electricityMeters.streets();
+	const data = await electricityMeters.lowest();
+	const data2 = await electricityMeters.highest();
 	//console.log(streets);
 	res.render('streets', {
-		streets
+		streets,
+		data,
+		data2
 	});
 });
 
@@ -143,6 +147,7 @@ app.post('/trackButton', async function (req, res) {
 		console.log(err)
 	}
 });
+
 
 
 

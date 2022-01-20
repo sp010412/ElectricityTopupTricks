@@ -70,6 +70,28 @@ module.exports = function (pool) {
 		}
 	}
 
+	// return lower balance 
+	async function lowest() {
+		try {
+
+			const low = await pool.query(`SELECT * FROM electricity_meter  WHERE balance =(SELECT MIN(balance) FROM electricity_meter)`);
+			return low.rows;
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
+	// return highest balance 
+	async function highest() {
+		try {
+
+			const high = await pool.query(`SELECT * FROM electricity_meter  WHERE balance =(SELECT MAX(balance) FROM electricity_meter)`);
+			return high.rows;
+		} catch (err) {
+			console.log(err)
+		}
+	}
+
 	return {
 		streets,
 		streetMeters,
@@ -77,7 +99,9 @@ module.exports = function (pool) {
 		topupElectricity,
 		meterData,
 		useElectricity,
-		idMeters
+		idMeters,
+		lowest,
+		highest
 	}
 
 

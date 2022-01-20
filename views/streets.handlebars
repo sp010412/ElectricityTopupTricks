@@ -21,4 +21,87 @@
 
 <h2><a href="/trackMeterId">Track data for a given meterId</a></h2>
 
+<h2>Lowest meter data</h2>
+
+<table style="width:100%">
+	<tr>
+		<td>
+			Id
+		</td>
+		<td>
+			Street_number
+		</td>
+		<td>
+			Street_ID
+		</td>
+		<td>
+			Balance
+		</td>
+	</tr>
+	
+	{{#each data}}
+	<tr>
+
+		<td>
+			{{id}}
+
+		</td>
+
+		<td>
+			{{street_number}}
+		</td>
+		<td>
+			{{street_id}}
+		</td>
+		<td>
+			{{balance}}
+		</td>
+
+	</tr>
+	{{/each}}
+</table>
+
+<h2>Highest meter data</h2>
+
+<table style="width:100%">
+	<tr>
+		<td>
+			Id
+		</td>
+		<td>
+			Street_number
+		</td>
+		<td>
+			Street_ID
+		</td>
+		<td>
+			Balance
+		</td>
+	</tr>
+	
+	{{#each data2}}
+	<tr>
+
+		<td>
+			{{id}}
+
+		</td>
+
+		<td>
+			{{street_number}}
+		</td>
+		<td>
+			{{street_id}}
+		</td>
+		<td>
+			{{balance}}
+		</td>
+
+	</tr>
+	{{/each}}
+</table>
+
+
+
+
 
