@@ -1,18 +1,40 @@
-<table>
-{{#each meters}}
-<tr>
-    <td>
-		{{street_number}}
-	</td>
-	<td>
-		{{street_id}}
-	</td>
-	<td>
-		{{balance}}
-	</td>
-    <td>
-		{{name}}
-	</td>
-</tr>
-{{/each}}
+<table style="width:100%">
+	
+	<tr>
+		<td>
+			Id
+		</td>
+		<td>
+			Street_number
+		</td>
+		<td>
+			Street_ID
+		</td>
+		<td>
+			Balance
+		</td>
+	</tr>
+	{{#each meters}}
+	<tr>
+
+		<td>
+			{{id}}
+
+		</td>
+
+		<td>
+			{{street_number}}
+		</td>
+		<td>
+			{{street_id}}
+		</td>
+		<td>
+			{{balance}}
+		</td>
+		<td>
+			{{name}}
+		</td>
+
+	</tr>
+	{{/each}}
 </table>

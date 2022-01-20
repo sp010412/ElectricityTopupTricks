@@ -1,5 +1,5 @@
 // this is our
-module.exports = function(pool) {
+module.exports = function (pool) {
 
 	// list all the streets the we have on records
 	async function streets() {
@@ -10,31 +10,37 @@ module.exports = function(pool) {
 	// for a given street show all the meters and their balances
 	async function streetMeters(streetId) {
 
-		const metersForEachStreet = await pool.query(`select street_number, street_id, balance from  electricity_meter where street_id = $1 `, [streetId]);
+		const metersForEachStreet = await pool.query(`select id, street_number, street_id, balance from  electricity_meter where street_id = $1 order by id`, [streetId]);
+		return metersForEachStreet.rows;
+	}
+
+	async function idMeters(id) {
+
+		const metersForEachStreet = await pool.query(`select id, street_number, street_id, balance from  electricity_meter where id = $1 `, [id]);
 		return metersForEachStreet.rows;
 	}
 
 	// return all the appliances
 	async function appliances() {
-		const  usagePerAppliance= await pool.query(`select * from appliance`);
+		const usagePerAppliance = await pool.query(`select * from appliance`);
 		return usagePerAppliance.rows;
 	}
 
 	// increase the meter balance for the meterId supplied
 	async function topupElectricity(meterId, units) {
-		const topUp = await pool.query(`select street_number from electricity_meter`);
-
-		await pool.query('UPDATE fruits SET qty = qty + $1 WHERE fruit_type = $2', [perFruit, type]);
+		await pool.query('UPDATE electricity_meter SET balance = balance + $1 WHERE id = $2', [units, meterId]);
 	}
-	
-	// return the data for a given balance
-	function meterData(meterId) {
-	
+
+	// return the data for a given balance/id
+	async function meterData(meterId) {
+
+		const balance = await pool.query(`select balance from electricity_meter where id = $1 `, [meterId]);
+		return balance.rows;
 	}
 
 	// decrease the meter balance for the meterId supplied
-	function useElectricity(meterId, units) {
-	
+	async function useElectricity(meterId, units) {
+		await pool.query('UPDATE electricity_meter SET balance = balance - $1 WHERE id = $2', [units, meterId]);
 	}
 
 	return {
@@ -43,7 +49,8 @@ module.exports = function(pool) {
 		appliances,
 		topupElectricity,
 		meterData,
-		useElectricity
+		useElectricity,
+		idMeters
 	}
 
 

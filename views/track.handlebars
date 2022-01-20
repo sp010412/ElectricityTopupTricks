@@ -1,0 +1,60 @@
+<form action="/trackButton" method="POST">
+    <div class="f-group">
+        <label for="" class="title">Select meterId</label>
+        <select name="slct1" id="slct1" class="slct1">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="3">7</option>
+            <option value="4">8</option>
+            <option value="5">9</option>
+        </select>
+    </div>
+     <button class="button-primary buy" type="submit" name="button">Track</button>
+
+    </form>
+
+<table style="width:100%">
+	{{#each dataForEachMeter}}
+	<tr>
+		<td>
+			Id
+		</td>
+		<td>
+			Street_number
+		</td>
+		<td>
+			Street_ID
+		</td>
+		<td>
+			Balance
+		</td>
+	</tr>
+	<tr>
+
+		<td>
+			{{id}}
+
+		</td>
+
+		<td>
+			{{street_number}}
+		</td>
+		<td>
+			{{street_id}}
+		</td>
+		<td>
+			{{balance}}
+		</td>
+		<td>
+			{{name}}
+		</td>
+
+	</tr>
+    	{{/each}}
+</table>
+    
+

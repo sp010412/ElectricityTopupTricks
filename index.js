@@ -53,12 +53,11 @@ app.get('/meters/:street_id', async function (req, res) {
 
 	// use the streetMeters method in the factory function...
 	// send the street id in as sent in by the URL parameter street_id - req.params.street_id
-	 var id = req.params.street_id;
+	var id = req.params.street_id;
 	// create  template called street_meters.handlebars
 	// in there loop over all the meters and show them on the screen.
 	// show the street number and name and the meter balance
 	const meters = await electricityMeters.streetMeters(id);
-	console.log(meters)
 
 	res.render('street_meters', {
 		id,
@@ -66,21 +65,68 @@ app.get('/meters/:street_id', async function (req, res) {
 	});
 });
 
+app.get('/topupUnits', async function (req, res) {
 
-app.get('/meter/use/:meter_id', async function (req, res) {
+	res.render('buy_electicity', {
 
-	// show the current meter balance and select the appliance you are using electricity for
-	res.render('use_electicity', {
-		meters
 	});
 });
 
-app.post('/meter/use/:meter_id', async function (req, res) {
 
-	// update the meter balance with the usage of the appliance selected.
-	res.render(`/meter/user/${req.params.meter_id}`);
+app.post('/buyButton', async function (req, res) {
+	try {
+		var units = req.body.inputBox;
+		var meterId = req.body.slct;
+		const addedUnits = await electricityMeters.topupElectricity(meterId, units);
 
+		res.render('buy_electicity', {
+			addedUnits
+		});
+	} catch (err) {
+		console.log(err)
+	}
 });
+
+app.get('/useUnits', async function (req, res) {
+
+	res.render('use_electicity', {
+
+	});
+});
+
+app.post('/useButton', async function (req, res) {
+	try {
+		var meterId = req.body.slct1;
+		var units = req.body.slct2;
+
+		const usedUnits = await electricityMeters.useElectricity(meterId, units);
+
+		res.render('use_electicity', {
+			usedUnits
+		});
+	} catch (err) {
+		console.log(err)
+	}
+});
+
+app.get('/trackMeterId', async function (req, res) {
+
+	res.render('track', {
+		
+	});
+});
+
+app.post('/trackButton', async function (req, res) {
+	var id = req.body.slct1;
+	const dataForEachMeter = await electricityMeters.idMeters(id);
+	
+	res.render('track', {
+		dataForEachMeter
+	});
+});
+
+
+
 
 // start  the server and start listening for HTTP request on the PORT number specified...
 app.listen(PORT, function () {
