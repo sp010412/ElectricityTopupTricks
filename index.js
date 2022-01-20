@@ -112,17 +112,21 @@ app.post('/useButton', async function (req, res) {
 app.get('/trackMeterId', async function (req, res) {
 
 	res.render('track', {
-		
+
 	});
 });
 
 app.post('/trackButton', async function (req, res) {
-	var id = req.body.slct1;
-	const dataForEachMeter = await electricityMeters.idMeters(id);
-	
-	res.render('track', {
-		dataForEachMeter
-	});
+	try {
+		var id = req.body.slct1;
+		const dataForEachMeter = await electricityMeters.idMeters(id);
+
+		res.render('track', {
+			dataForEachMeter
+		});
+	} catch (err) {
+		console.log(err)
+	}
 });
 
 
